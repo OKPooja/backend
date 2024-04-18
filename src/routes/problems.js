@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 router.get("/problems", async function(req, res){
     try {
-        const docs = await find('problems-list', {});
+        const docs = await find('problems-list', {category: req.query.category});
         res.json(docs);
     } catch (error) {
         console.error("Error fetching problems:", error);
