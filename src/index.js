@@ -18,6 +18,9 @@ mongoose.connect(mongoURI).then(function(){
     });
     const authRoute = require('./routes/auth.js');
     app.use("", authRoute);
+
+    const problemsRoute = require('./routes/problems.js');
+    app.use("", problemsRoute);
     
 });
 
