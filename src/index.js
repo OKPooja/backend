@@ -21,6 +21,9 @@ mongoose.connect(mongoURI).then(function(){
 
     const problemsRoute = require('./routes/problems.js');
     app.use("", problemsRoute);
+
+    const markSolvedRoute = require('./routes/markSolved.js');
+    app.use("", markSolvedRoute);
     
 });
 
