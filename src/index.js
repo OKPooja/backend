@@ -21,7 +21,12 @@ mongoose.connect(mongoURI).then(function(){
 
     const problemsRoute = require('./routes/problems.js');
     app.use("", problemsRoute);
-    
+
+    const markSolvedRoute = require('./routes/markSolved.js');
+    app.use("", markSolvedRoute);
+
+    const markBookmarkedRoute = require('./routes/markBookmarked.js');
+    app.use("", markBookmarkedRoute);
 });
 
 app.listen(5000, function(){
