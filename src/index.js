@@ -6,29 +6,33 @@ require('dotenv').config();
 const mongoURI = process.env.mongo_uri;
 const mongoose = require('mongoose');
 
-const bodyParser =  require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect(mongoURI).then(function(){
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
     console.log("Mongoose connected");
-    const authRoute = require('./routes/auth.js');
-    app.use("", authRoute);
+  })
+  .catch(error => {
+    console.error("Mongoose connection error:", error);
+  });
 
-    const problemsRoute = require('./routes/problems.js');
-    app.use("", problemsRoute);
+const authRoute = require('./routes/auth.js');
+app.use("", authRoute);
 
-    const markSolvedRoute = require('./routes/markSolved.js');
-    app.use("", markSolvedRoute);
+const problemsRoute = require('./routes/problems.js');
+app.use("", problemsRoute);
 
-    const markBookmarkedRoute = require('./routes/markBookmarked.js');
-    app.use("", markBookmarkedRoute);
-});
+const markSolvedRoute = require('./routes/markSolved.js');
+app.use("", markSolvedRoute);
+
+const markBookmarkedRoute = require('./routes/markBookmarked.js');
+app.use("", markBookmarkedRoute);
+
 app.get("/", (req, res) => {
-    res.send("API Works!");
+  res.send("API Works!");
 });
-// app.listen(5000, function(){
-//     console.log("Server started at PORT:5000");
-// });
 
+// Export the Express app as a handler function
 module.exports = app;
