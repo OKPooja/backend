@@ -12,10 +12,6 @@ app.use(bodyParser.json());
 
 mongoose.connect(mongoURI).then(function(){
     console.log("Mongoose connected");
-
-    app.get("/", function(req, res){
-        res.send("API Works!");
-    });
     const authRoute = require('./routes/auth.js');
     app.use("", authRoute);
 
@@ -28,7 +24,11 @@ mongoose.connect(mongoURI).then(function(){
     const markBookmarkedRoute = require('./routes/markBookmarked.js');
     app.use("", markBookmarkedRoute);
 });
-
-app.listen(5000, function(){
-    console.log("Server started at PORT:5000");
+app.get("/", (req, res) => {
+    res.send("API Works!");
 });
+// app.listen(5000, function(){
+//     console.log("Server started at PORT:5000");
+// });
+
+module.exports = app;
