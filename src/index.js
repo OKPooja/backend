@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://gawadepooja729:gawadepooja729@cluster0.yetkynf.mongodb.net/projectdb", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Mongoose connected");
   })
