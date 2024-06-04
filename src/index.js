@@ -34,5 +34,4 @@ app.get("/", (req, res) => {
   res.send("API Works!");
 });
 
-// Export the Express app as a handler function
 module.exports = app;
