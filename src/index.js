@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb+srv://gawadepooja729:gawadepooja729@cluster0.yetkynf.mongodb.net/projectdb",)
+mongoose.connect(mongoURI,)
   .then(() => {
     console.log("Mongoose connected");
   })
@@ -30,9 +30,13 @@ app.use("", markSolvedRoute);
 const markBookmarkedRoute = require('./routes/markBookmarked.js');
 app.use("", markBookmarkedRoute);
 
+const submissionRoute = require('./routes/submission.js');
+app.use("", submissionRoute);
+
 app.get("/", (req, res) => {
   res.send("API Works!");
 });
+
 app.listen(5000, function(){
     console.log("Server started at PORT:5000");
 });
