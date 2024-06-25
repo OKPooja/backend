@@ -33,6 +33,9 @@ app.use("", markBookmarkedRoute);
 const submissionRoute = require('./routes/submission.js');
 app.use("", submissionRoute);
 
+const getSolvedProblemsRoute = require('./routes/getSolvedProblems.js');
+app.use("", getSolvedProblemsRoute);
+
 app.get("/", (req, res) => {
   res.send("API Works!");
 });
