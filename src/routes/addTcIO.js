@@ -25,15 +25,6 @@ async function uploadTestCases() {
         console.error("Error uploading test case:", error);
     }
 }
-async function getAllTestCases() {
-    try {
-        const testCases = await TestCase.find();
-        console.log("All Test Cases:", testCases);
-    } catch(error) {
-        console.error(error);
-    }
-}
 uploadTestCases();
-getAllTestCases();
 
 module.exports = router;
