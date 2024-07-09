@@ -36,6 +36,9 @@ app.use("", submissionRoute);
 const getSolvedProblemsRoute = require('./routes/getSolvedProblems.js');
 app.use("", getSolvedProblemsRoute);
 
+const addTestCasesRoute = require('./routes/addTcIO.js');
+//app.use("", addTestCasesRoute);
+
 app.get("/", (req, res) => {
   res.send("API Works!");
 });

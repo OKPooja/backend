@@ -11,7 +11,6 @@ router.get("/get-solved-problems", async (req, res) => {
 
     try {
         const solvedProblems = await Submission.find({ user_id, verdict: "Accepted" });
-
         res.status(200).json({
             code: 200,
             status: "success",
