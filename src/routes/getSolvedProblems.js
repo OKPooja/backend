@@ -8,7 +8,6 @@ router.get("/get-solved-problems", async (req, res) => {
     if (!user_id) {
         return res.status(400).json({ error: "User id parameter is required" });
     }
-
     try {
         const solvedProblems = await Submission.find({ user_id, verdict: "Accepted" });
         res.status(200).json({
