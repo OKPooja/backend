@@ -5,7 +5,7 @@ const fs = require('fs/promises');
 
 async function uploadTestCases() {
     try {
-        const problem_id = "New Problem";
+        const problem_id = "668fd377d1a5744a7117fe99";
         const inputData = await fs.readFile("C:/Users/ADMIN/StudioProjects/backend/src/routes/test_case.txt", "utf-8");
         const outputData = await fs.readFile("C:/Users/ADMIN/StudioProjects/backend/src/routes/output.txt", "utf-8");
         input = inputData.replace(/\r/g, '').trim();

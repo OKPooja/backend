@@ -36,11 +36,11 @@ app.use("", submissionRoute);
 const getSolvedProblemsRoute = require('./routes/getSolvedProblems.js');
 app.use("", getSolvedProblemsRoute);
 
-const addTestCasesRoute = require('./routes/addTcIO.js');
-//app.use("", addTestCasesRoute);
+// const addTestCasesRoute = require('./routes/addTcIO.js');
+// app.use("", addTestCasesRoute);
 
-const getTestCasesRoute = require('./routes/getAllTestcases.js');
-app.use("", getTestCasesRoute);
+// const getTestCasesRoute = require('./routes/getAllTestcases.js');
+// app.use("", getTestCasesRoute);
 
 
 app.get("/", (req, res) => {
