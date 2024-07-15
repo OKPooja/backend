@@ -22,6 +22,9 @@ const submissionsSchema = new mongoose.Schema({
     output: {
         type: String,
     },
+    language : {
+        type: String,
+    },
     verdict: {
         type: String,
         required: true,

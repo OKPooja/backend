@@ -17,9 +17,9 @@ router.post("/code-submit", async (req, res) => {
         }
         console.log("Reached here");
         const { overallVerdict, results, output } = await executeCode(code, problem_id, language);
-        console.log(overallVerdict);
-        console.log(output);
-        console.log(results);
+        // console.log(overallVerdict);
+        // console.log(output);
+        // console.log(results);
        
 
         const newSubmission = new Submission({
@@ -27,6 +27,7 @@ router.post("/code-submit", async (req, res) => {
             problem_id,
             code,
             output,
+            language,
             verdict: overallVerdict,
             time_for_execution: null,
         });
@@ -89,7 +90,6 @@ async function executeCode(code, problem_id, language) {
                 results.push({ verdict: overallVerdict, actualOutput, expectedOutput });
                 return { overallVerdict, results, output };
             } 
-           
             const verdict = actualOutput.trim() === expectedOutput.trim() ? 'Accepted' : 'Failed';
             output = actualOutput;
             if(verdict == 'Failed') {
