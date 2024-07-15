@@ -36,6 +36,9 @@ app.use("", submissionRoute);
 const getSolvedProblemsRoute = require('./routes/getSolvedProblems.js');
 app.use("", getSolvedProblemsRoute);
 
+const getSubmissions = require('./routes/getAllSubmissions.js');
+app.use("", getSubmissions);
+
 // const addTestCasesRoute = require('./routes/addTcIO.js');
 // app.use("", addTestCasesRoute);
 
