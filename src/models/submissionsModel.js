@@ -19,6 +19,9 @@ const submissionsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    output: {
+        type: String,
+    },
     verdict: {
         type: String,
         required: true,

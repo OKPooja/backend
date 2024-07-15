@@ -16,14 +16,17 @@ router.post("/code-submit", async (req, res) => {
             });
         }
         console.log("Reached here");
-        const { overallVerdict, results } = await executeCode(code, problem_id, language);
+        const { overallVerdict, results, output } = await executeCode(code, problem_id, language);
         console.log(overallVerdict);
+        console.log(output);
+        console.log(results);
        
 
         const newSubmission = new Submission({
             user_id,
             problem_id,
             code,
+            output,
             verdict: overallVerdict,
             time_for_execution: null,
         });
@@ -53,6 +56,8 @@ async function executeCode(code, problem_id, language) {
         const testCases = await TestCase.find({ problem_id });
         const results = [];
         let overallVerdict = 'Accepted';
+        let output;
+
         for (const testCase of testCases) {
             const { input, output: expectedOutput } = testCase;
             // console.log("Test");
@@ -66,23 +71,38 @@ async function executeCode(code, problem_id, language) {
             });
 
             const actualOutput = response.data.output; 
-            if (actualOutput.includes('Compilation Error') || actualOutput.includes('Runtime Error') || actualOutput.includes('Time Limit Exceeded')) {
-                overallVerdict = actualOutput; 
-                results.push({ verdict: actualOutput, actualOutput, expectedOutput });
-                return { overallVerdict, results };
-            }
-        
+            if(actualOutput.includes('Compilation Error')) {
+                overallVerdict = 'Compilation Error';
+                output = actualOutput;
+                results.push({ verdict: overallVerdict, actualOutput, expectedOutput });
+                return { overallVerdict, results, output };
+            } 
+            if(actualOutput.includes('Runtime Error')) {
+                overallVerdict = 'Runtime Error';
+                output = actualOutput;
+                results.push({ verdict: overallVerdict, actualOutput, expectedOutput });
+                return { overallVerdict, results, output };
+            } 
+            if(actualOutput.includes('Time Limit Exceeded')) {
+                overallVerdict = 'Time Limit Exceeded';
+                output = actualOutput;
+                results.push({ verdict: overallVerdict, actualOutput, expectedOutput });
+                return { overallVerdict, results, output };
+            } 
+           
             const verdict = actualOutput.trim() === expectedOutput.trim() ? 'Accepted' : 'Failed';
+            output = actualOutput;
             if(verdict == 'Failed') {
                 overallVerdict = 'Wrong Answer';
-                results.push({ verdict: actualOutput, actualOutput, expectedOutput });
-                return { overallVerdict, results };
+                output = `Expected output: ${expectedOutput.trim()}. Your Output: ${actualOutput.trim()}`;
+                results.push({ verdict: verdict, actualOutput, expectedOutput });
+                return { overallVerdict, results, output };
             }
 
             results.push({ verdict, actualOutput, expectedOutput });
         }
-
-        return { overallVerdict, results };
+        output = 'OK all test cases.'
+        return { overallVerdict, results, output };
     } catch (error) {
         console.error('Error executing code:', error);
         throw new Error('Code execution failed');
